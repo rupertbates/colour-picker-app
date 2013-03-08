@@ -1,5 +1,6 @@
 package com.serendipity.colourPicker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -14,6 +15,8 @@ import com.serendipity.colourPicker.R;
 
 public class MyActivity extends SherlockActivity {
 
+    private ColourAdapter mAdapter;
+
     /**
      * Called when the activity is first created.
      */
@@ -22,7 +25,8 @@ public class MyActivity extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         ListView list = (ListView) findViewById(R.id.list);
-        list.setAdapter(new ColourAdapter(this, getColours()));
+        mAdapter = new ColourAdapter(this, getColours());
+        list.setAdapter(mAdapter);
     }
 
     @Override
@@ -37,6 +41,15 @@ public class MyActivity extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.shareMenu){
             Log.d("ColourPicker", "share");
+            StringBuilder sb = new StringBuilder();
+            for(Integer i : mAdapter.getSelected()){
+                sb.append(mAdapter.getItem(i).toString());
+            }
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
             return true;
         }
         return false;

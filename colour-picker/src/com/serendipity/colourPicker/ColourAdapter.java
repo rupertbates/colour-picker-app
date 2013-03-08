@@ -13,11 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ColourAdapter extends ArrayAdapter<Colours> implements CompoundButton.OnCheckedChangeListener {
-    List<Integer> selected = new ArrayList<Integer>();
+    private List<Integer> selected = new ArrayList<Integer>();
 
     public ColourAdapter(Context context, List<Colours> objects) {
         super(context, R.layout.colour, R.id.text, objects);
     }
+
+
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
@@ -51,5 +53,9 @@ public class ColourAdapter extends ArrayAdapter<Colours> implements CompoundButt
             Integer i = (Integer) compoundButton.getTag();
             selected.add(i);
         }
+    }
+
+    public List<Integer> getSelected() {
+        return selected;
     }
 }
