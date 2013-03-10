@@ -44,6 +44,7 @@ public class MyActivity extends SherlockActivity {
             StringBuilder sb = new StringBuilder();
             for(Integer i : mAdapter.getSelected()){
                 sb.append(mAdapter.getItem(i).toString());
+                sb.append("\n");
             }
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
